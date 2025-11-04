@@ -2,12 +2,15 @@ package infra
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"gorm.io/gorm"
 	"gorm.io/driver/postgres"
+	"gorm.io/driver/sqlite"
 )
 
 func SetupDB() *gorm.DB {
+	env := os.Getenv("ENV")
 	dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Tokyo",
 		os.Getenv("DB_HOST"),
@@ -17,8 +20,19 @@ func SetupDB() *gorm.DB {
 		os.Getenv("DB_PORT"),
 	)
 
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	if err != nil{
+	var (
+		db *gorm.DB
+		err error
+	)
+
+	if env == "prod" {
+		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+		log.Println("Setup postgresql database")
+	} else {
+		db, err = gorm.Open(sqlite.Open(":memory:"), &gorm.Config{})
+		log.Println("Setup sqlite database")
+	}
+	if err != nil {
 		panic("Failed to connect to database")
 	}
 

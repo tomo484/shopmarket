@@ -2,26 +2,19 @@ package main
 
 import (
 	"shopmarket/controllers"
+	"shopmarket/middlewares"
 	"shopmarket/repositories"
 	"shopmarket/services"
 	"shopmarket/infra"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
+	"gorm.io/gorm"
 )
 
-func main() {
-  infra.Initialize()
-  db := infra.SetupDB()
-  //log.Println(os.Getenv("ENV"))
-	//items := []models.Item{
-	//	{ID: 1, Name: "商品1", Price: 1000, Description: "説明1", SoldOut: false},
-	//	{ID: 2, Name: "商品2", Price: 2000, Description: "説明2", SoldOut: true},
-	//	{ID: 3, Name: "商品3", Price: 3000, Description: "説明3", SoldOut: false},
-	//}
-
-	//itemRepository := repositories.NewItemMemoryRepository(items)
-	itemRepository := repositories.NewItemRepository(db)
+func setupRouter(db *gorm.DB) *gin.Engine {
+  itemRepository := repositories.NewItemRepository(db)
   itemService := services.NewItemService(itemRepository)
-	itemController := controllers.NewItemController(itemService)
+  itemController := controllers.NewItemController(itemService)
 
 
   authRepository := repositories.NewAuthRepository(db)
@@ -29,15 +22,26 @@ func main() {
   authController := controllers.NewAuthController(authService)
 
 	router := gin.Default()
+	router.Use(cors.Default())
   itemRouter := router.Group("/items")
+  itemRouterWithAuth := router.Group("/items", middlewares.AuthMiddleware(authService))
   itemRouter.GET("", itemController.FindAll)
-  itemRouter.GET("/:id", itemController.FindById)
-  itemRouter.POST("", itemController.Create)
-  itemRouter.PUT("/:id", itemController.Update)
-  itemRouter.DELETE("/:id", itemController.Delete)
+  itemRouterWithAuth.GET("/:id", itemController.FindById)
+  itemRouterWithAuth.POST("", itemController.Create)
+  itemRouterWithAuth.PUT("/:id", itemController.Update)
+  itemRouterWithAuth.DELETE("/:id", itemController.Delete)
 
   authRouter := router.Group("/auth")
   authRouter.POST("/signup", authController.Signup)
-	router.Run("localhost:8080")
+  authRouter.POST("/login", authController.Login)
+  return router
+
+}
+
+func main() {
+  infra.Initialize()
+  db := infra.SetupDB()
+  router := setupRouter(db)
+  router.Run("localhost:8080")
 }
 
