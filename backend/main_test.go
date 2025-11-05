@@ -1,15 +1,17 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
-	"log"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"testing"
 
+	"shopmarket/dto"
 	"shopmarket/infra"
 	"shopmarket/models"
+	"shopmarket/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -18,9 +20,8 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	if err := godotenv.Load(".env.test"); err != nil {
-		log.Fatalln("Error loading .env.test file")
-	}
+	// .env.testファイルがあれば読み込む（オプショナル）
+	godotenv.Load(".env.test")
    ///テスト実行
 	code := m.Run()
    ///テスト終了
@@ -99,7 +100,7 @@ func TestCreate(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	//APIの実行結果を取得
-	var res map[string][]models.Item
+	var res map[string]models.Item
 	json.Unmarshal([]byte(w.Body.String()), &res)
 
 	//テストのアサーション
