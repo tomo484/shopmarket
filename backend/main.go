@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"strings"
 	"shopmarket/controllers"
 	"shopmarket/middlewares"
 	"shopmarket/repositories"
@@ -24,32 +23,20 @@ func setupRouter(db *gorm.DB) *gin.Engine {
 
 	router := gin.Default()
 	
-	corsConfig := cors.DefaultConfig()
-	
-	// 環境に応じてCORS設定を変更
-	if os.Getenv("ENV") == "prod" {
-		// 本番環境: 特定のオリジンのみ許可
-		allowedOrigins := os.Getenv("ALLOWED_ORIGINS")
-		if allowedOrigins != "" {
-			corsConfig.AllowOrigins = strings.Split(allowedOrigins, ",")
-		} else {
-			// デフォルトで一般的なVercelドメインを許可
-			corsConfig.AllowOrigins = []string{
-				"https://*.vercel.app",
-				"https://shopmarket-frontend.vercel.app",
-			}
-		}
-	} else {
-		// 開発環境: localhost許可
-		corsConfig.AllowOrigins = []string{
-			"http://localhost:3000",
-			"http://localhost:3003",
-		}
+	// CORS設定
+	corsConfig := cors.Config{
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		AllowCredentials: true,
+		MaxAge:           12 * 3600, // 12時間
 	}
 	
-	corsConfig.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
-	corsConfig.AllowHeaders = []string{"Origin", "Content-Type", "Authorization"}
-	corsConfig.AllowCredentials = true
+	// 開発環境: 複数のlocalhostポートを許可
+	corsConfig.AllowOrigins = []string{
+		"http://localhost:3001",
+		"http://localhost:3002",
+		"http://localhost:3003",
+	}
 	
 	router.Use(cors.New(corsConfig))
 	

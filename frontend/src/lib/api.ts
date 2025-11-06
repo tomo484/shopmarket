@@ -7,8 +7,8 @@ const getBaseURL = () => {
   if (process.env.NODE_ENV === 'production') {
     return process.env.NEXT_PUBLIC_API_URL || 'https://shopmarket-backend.onrender.com';
   }
-  // 開発環境
-  return '/api';
+  // 開発環境: 直接バックエンドに接続
+  return 'http://localhost:8080';
 };
 
 const api = axios.create({
