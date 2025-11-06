@@ -1,8 +1,18 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+// 環境に応じてベースURLを設定
+const getBaseURL = () => {
+  // 本番環境
+  if (process.env.NODE_ENV === 'production') {
+    return process.env.NEXT_PUBLIC_API_URL || 'https://shopmarket-backend.onrender.com';
+  }
+  // 開発環境
+  return '/api';
+};
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: getBaseURL(),
   headers: {
     'Content-Type': 'application/json',
   },

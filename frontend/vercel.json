@@ -1,0 +1,14 @@
+{
+  "buildCommand": "cd frontend && pnpm build",
+  "outputDirectory": "frontend/.next",
+  "installCommand": "cd frontend && pnpm install",
+  "framework": "nextjs",
+  "functions": {
+    "frontend/src/app/**": {
+      "maxDuration": 10
+    }
+  },
+  "env": {
+    "NEXT_PUBLIC_API_URL": "@next_public_api_url"
+  }
+}
