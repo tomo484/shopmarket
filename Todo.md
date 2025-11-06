@@ -193,14 +193,20 @@ interface UpdateItemRequest {
 ## 🧪 Phase 7: テスト実装
 
 #### 7.1 単体テスト
-- [ ] コンポーネントテスト（Jest + React Testing Library）
-- [ ] カスタムフックテスト
-- [ ] ユーティリティ関数テスト
+- [x] コンポーネントテスト（Jest + React Testing Library）
+  - [x] Loading コンポーネント
+  - [x] ErrorMessage コンポーネント
+  - [x] Header コンポーネント
+- [x] カスタムフックテスト
+  - [x] useAuth フック
+  - [x] useItems フック
+- [x] ユーティリティ関数テスト
+  - [x] formatPrice, formatDate, cn 関数
 
 #### 7.2 統合テスト
-- [ ] API連携テスト
-- [ ] 認証フローテスト
-- [ ] CRUD操作テスト
+- [x] API連携テスト
+- [x] 認証フローテスト
+- [x] CRUD操作テスト
 
 #### 7.3 E2Eテスト（オプション）
 - [ ] Playwright/Cypress セットアップ

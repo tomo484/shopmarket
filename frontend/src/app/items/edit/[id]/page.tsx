@@ -45,10 +45,10 @@ export default function EditItemPage() {
   useEffect(() => {
     if (item) {
       reset({
-        name: item.name,
-        price: item.price,
-        description: item.description || '',
-        soldOut: item.soldOut,
+        name: item.Name,
+        price: item.Price,
+        description: item.Description || '',
+        soldOut: item.SoldOut,
       });
     }
   }, [item, reset]);
