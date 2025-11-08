@@ -1,2 +1,0 @@
--repositories/item_repositoryファイルの各インターフェイス, メソッド, 関数は説明できるようにしておいて下さい
--main.goに存在するルータ―定義, model, dot→controller→service→repositoryとさかのぼり理解できるかどうかの確認を行う

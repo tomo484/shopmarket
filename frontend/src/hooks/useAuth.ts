@@ -22,7 +22,6 @@ export const useAuth = () => {
 
   const signupMutation = useMutation({
     mutationFn: async (data: SignupRequest): Promise<AuthResponse> => {
-      // サインアップ後に自動ログイン
       await api.post('/auth/signup', data);
       const loginResponse = await api.post('/auth/login', data);
       return loginResponse.data;

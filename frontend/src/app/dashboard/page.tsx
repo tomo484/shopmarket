@@ -38,7 +38,7 @@ export default function DashboardPage() {
         {/* ヘッダーセクション */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">ダッシュボード</h1>
-          <p className="text-gray-600">あなたの出品アイテムを管理できます</p>
+          <p className="text-gray-600">あなたが出品したアイテムを管理できます</p>
         </div>
 
         {/* 統計カード */}
