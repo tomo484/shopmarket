@@ -1,8 +1,8 @@
 # ShopMarket
 
-ECサイト風のアイテム管理システム。Go（Gin）バックエンドとNext.jsフロントエンドで構成されたフルスタックアプリケーション。
+ECサイト風のアイテム管理システムです（アイデアベースなのでmercariなどに比べると著しく性能などは下がります(笑)）。Go（Gin）バックエンドとNext.jsフロントエンドで構成してます。
 
-## 🏗️ アーキテクチャ
+## アーキテクチャ
 
 ```
 shopmarket/
@@ -10,7 +10,7 @@ shopmarket/
 └── frontend/         # Next.js アプリケーション
 ```
 
-## 🚀 技術スタック
+## 技術スタック
 
 ### バックエンド
 - **Go 1.21+**
@@ -20,7 +20,7 @@ shopmarket/
 - **JWT** - 認証
 - **Docker** - コンテナ化
 
-### フロントエンド（予定）
+### フロントエンド
 - **Next.js 14** (App Router)
 - **TypeScript**
 - **Tailwind CSS**
@@ -30,7 +30,7 @@ shopmarket/
 - **Axios** - HTTP クライアント
 - **TanStack Query** - 状態管理・キャッシュ
 
-## 📋 機能
+## 機能
 
 ### 認証機能
 - ユーザー登録
@@ -44,7 +44,7 @@ shopmarket/
 - アイテム更新（所有者のみ）
 - アイテム削除（所有者のみ）
 
-## 🔌 API エンドポイント
+## API エンドポイント
 
 ### 認証
 - `POST /auth/signup` - ユーザー登録
@@ -57,7 +57,7 @@ shopmarket/
 - `PUT /items/:id` - アイテム更新（認証必要）
 - `DELETE /items/:id` - アイテム削除（認証必要）
 
-## 📊 データモデル
+## データモデル
 
 ### User
 ```go
@@ -120,7 +120,7 @@ go run main.go
 
 サーバーは `http://localhost:8080` で起動します。
 
-### フロントエンドセットアップ（予定）
+### フロントエンドセットアップ
 
 1. **フロントエンドディレクトリに移動**
 ```bash
@@ -137,9 +137,9 @@ pnpm install
 pnpm dev
 ```
 
-フロントエンドは `http://localhost:3000` で起動します。
+フロントエンドは `http://localhost:3000` で起動します。（3001でも3002等でも大丈夫です）
 
-## 🧪 テスト
+## テスト
 
 ### バックエンドテスト
 ```bash
@@ -151,28 +151,11 @@ go test ./...
 go test -v ./controllers
 ```
 
-## 📁 プロジェクト構造
-
-### 現在の構造（バックエンドのみ）
+##プロジェクト構造
+### 構造（フルスタック）
 ```
 shopmarket/
-├── controllers/      # HTTPハンドラー
-├── services/         # ビジネスロジック
-├── repositories/     # データアクセス層
-├── models/          # データモデル
-├── dto/             # データ転送オブジェクト
-├── middlewares/     # ミドルウェア
-├── infra/           # インフラストラクチャ
-├── migrations/      # データベースマイグレーション
-├── docker/          # Docker設定
-├── main.go          # エントリーポイント
-└── main_test.go     # テストファイル
-```
-
-### 予定構造（フルスタック）
-```
-shopmarket/
-├── backend/         # 既存のGoコードを移動
+├── backend/         
 │   ├── controllers/
 │   ├── services/
 │   ├── repositories/
@@ -182,9 +165,9 @@ shopmarket/
 │   ├── infra/
 │   ├── migrations/
 │   └── main.go
-├── frontend/        # Next.jsアプリケーション
+├── frontend/        
 │   ├── src/
-│   │   ├── app/     # App Router
+│   │   ├── app/     
 │   │   ├── components/
 │   │   ├── lib/
 │   │   ├── types/
@@ -194,20 +177,7 @@ shopmarket/
 └── docker-compose.yaml
 ```
 
-## 🔧 開発ガイドライン
-
-### コーディング規約
-- Go: `gofmt` でフォーマット
-- TypeScript: Prettier + ESLint
-- コミットメッセージ: Conventional Commits
-
-### ブランチ戦略
-- `main`: 本番環境
-- `develop`: 開発環境
-- `feature/*`: 機能開発
-- `hotfix/*`: 緊急修正
-
-## 📝 API使用例
+##API使用例
 
 ### ユーザー登録
 ```bash
@@ -241,34 +211,6 @@ curl -X POST http://localhost:8080/items \
   }'
 ```
 
-## 🚀 デプロイ
 
-### Docker Compose（推奨）
-```bash
-docker-compose up -d
-```
 
-### 本番環境
-- バックエンド: Railway, Heroku, AWS ECS
-- フロントエンド: Vercel, Netlify
-- データベース: AWS RDS, Railway PostgreSQL
 
-## 🤝 コントリビューション
-
-1. フォークする
-2. 機能ブランチを作成 (`git checkout -b feature/amazing-feature`)
-3. 変更をコミット (`git commit -m 'Add amazing feature'`)
-4. ブランチにプッシュ (`git push origin feature/amazing-feature`)
-5. プルリクエストを作成
-
-## 📄 ライセンス
-
-このプロジェクトはMITライセンスの下で公開されています。
-
-## 📞 サポート
-
-質問や問題がある場合は、GitHubのIssuesを作成してください。
-
----
-
-**注意**: フロントエンド部分は現在開発予定です。詳細は `Todo.md` を参照してください。
