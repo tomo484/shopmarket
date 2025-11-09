@@ -23,15 +23,15 @@ func setupRouter(db *gorm.DB) *gin.Engine {
 
 	router := gin.Default()
 	
-	// CORS設定
+	
 	corsConfig := cors.Config{
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		AllowCredentials: true,
-		MaxAge:           12 * 3600, // 12時間
+		MaxAge:           12 * 3600, 
 	}
 	
-	// 開発環境: 複数のlocalhostポートを許可
+	
 	corsConfig.AllowOrigins = []string{
 		"http://localhost:3001",
 		"http://localhost:3002",
