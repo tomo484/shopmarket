@@ -6,11 +6,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import CreateItemPage from '@/app/items/create/page';
 import api from '@/lib/api';
 
-// APIのモック
+
 jest.mock('@/lib/api');
 const mockedApi = api as jest.Mocked<typeof api>;
 
-// Next.jsのuseRouterのモック
+
 const mockPush = jest.fn();
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
@@ -18,7 +18,7 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-// 認証ヘルパー関数のモック
+
 jest.mock('@/lib/auth', () => ({
   isAuthenticated: jest.fn(() => true),
 }));
@@ -56,7 +56,7 @@ describe('Item CRUD Integration', () => {
     
     renderWithQueryClient(React.createElement(CreateItemPage));
     
-    // フォーム入力
+    
     const nameInput = screen.getByLabelText('商品名');
     const priceInput = screen.getByLabelText('価格');
     const descriptionInput = screen.getByLabelText('説明');
@@ -67,7 +67,7 @@ describe('Item CRUD Integration', () => {
     fireEvent.change(descriptionInput, { target: { value: 'Test Description' } });
     fireEvent.click(submitButton);
     
-    // API呼び出しの確認
+    
     await waitFor(() => {
       expect(mockedApi.post).toHaveBeenCalledWith('/items', {
         name: 'Test Item',

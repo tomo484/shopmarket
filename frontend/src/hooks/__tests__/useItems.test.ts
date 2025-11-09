@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useItems, useCreateItem } from '../useItems';
 import api from '@/lib/api';
 
-// APIのモック
+
 jest.mock('@/lib/api');
 const mockedApi = api as jest.Mocked<typeof api>;
 

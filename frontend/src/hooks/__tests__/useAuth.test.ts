@@ -5,11 +5,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAuth } from '../useAuth';
 import api from '@/lib/api';
 
-// APIのモック
+
 jest.mock('@/lib/api');
 const mockedApi = api as jest.Mocked<typeof api>;
 
-// 認証ヘルパー関数のモック
+
 jest.mock('@/lib/auth', () => ({
   setAuthToken: jest.fn(),
   removeAuthToken: jest.fn(),
@@ -69,8 +69,8 @@ describe('useAuth', () => {
     const mockLoginResponse = { data: { token: 'test-token' } };
     
     mockedApi.post
-      .mockResolvedValueOnce(mockSignupResponse) // signup
-      .mockResolvedValueOnce(mockLoginResponse); // auto-login
+      .mockResolvedValueOnce(mockSignupResponse) 
+      .mockResolvedValueOnce(mockLoginResponse); 
     
     const { result } = renderHook(() => useAuth(), {
       wrapper: createWrapper(),

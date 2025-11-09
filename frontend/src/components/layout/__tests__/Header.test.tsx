@@ -5,12 +5,12 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Header from '../Header';
 
-// useAuthフックのモック
+
 jest.mock('@/hooks/useAuth', () => ({
   useAuth: jest.fn(),
 }));
 
-// Next.jsのuseRouterのモック
+
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
     push: jest.fn(),

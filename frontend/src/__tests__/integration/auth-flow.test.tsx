@@ -6,11 +6,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import LoginPage from '@/app/(auth)/login/page';
 import api from '@/lib/api';
 
-// APIのモック
+
 jest.mock('@/lib/api');
 const mockedApi = api as jest.Mocked<typeof api>;
 
-// Next.jsのuseRouterのモック
+
 const mockPush = jest.fn();
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
@@ -18,7 +18,7 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-// 認証ヘルパー関数のモック
+
 jest.mock('@/lib/auth', () => ({
   setAuthToken: jest.fn(),
   removeAuthToken: jest.fn(),
@@ -49,7 +49,7 @@ describe('Authentication Flow Integration', () => {
     
     renderWithQueryClient(React.createElement(LoginPage));
     
-    // フォーム入力
+  
     const emailInput = screen.getByLabelText('メールアドレス');
     const passwordInput = screen.getByLabelText('パスワード');
     const submitButton = screen.getByRole('button', { name: 'ログイン' });
@@ -58,7 +58,7 @@ describe('Authentication Flow Integration', () => {
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.click(submitButton);
     
-    // API呼び出しの確認
+  
     await waitFor(() => {
       expect(mockedApi.post).toHaveBeenCalledWith('/auth/login', {
         email: 'test@example.com',
